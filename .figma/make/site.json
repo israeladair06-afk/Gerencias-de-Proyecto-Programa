@@ -1,0 +1,8 @@
+{
+  "title": "Matrícula UTP",
+  "description": "Portal de estudiantes de la Universidad Tecnológica de Panamá",
+  "language": "es",
+  "accessibility": {
+    "addBypassLinks": true
+  }
+}
