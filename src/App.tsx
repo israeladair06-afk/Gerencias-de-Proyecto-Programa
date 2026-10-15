@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from "react";
+import utpLogo from "./imports/utp-logo.png";
 
 type IconName =
   | "home"
@@ -24,7 +25,9 @@ type IconName =
   | "check"
   | "download"
   | "send"
-  | "alert";
+  | "alert"
+  | "eye"
+  | "eyeOff";
 
 const paths: Record<IconName, ReactNode> = {
   home: <><path d="m3 10 9-7 9 7" /><path d="M5 9v11h14V9M9 20v-7h6v7" /></>,
@@ -51,6 +54,8 @@ const paths: Record<IconName, ReactNode> = {
   download: <><path d="M12 3v12m-5-5 5 5 5-5" /><path d="M5 19h14" /></>,
   send: <path d="m3 11 18-8-8 18-2-8zM11 13l10-10" />,
   alert: <><path d="M12 4 3 20h18z" /><path d="M12 9v5M12 17h.01" /></>,
+  eye: <><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z" /><circle cx="12" cy="12" r="2.5" /></>,
+  eyeOff: <><path d="m3 3 18 18M10.6 6.2A10.7 10.7 0 0 1 12 6c6.5 0 10 6 10 6a16 16 0 0 1-3.1 3.6M6.2 6.3C3.5 8 2 12 2 12s3.5 6 10 6c1 0 2-.2 2.9-.5" /><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" /></>,
 };
 
 function Icon({ name, size = 16 }: { name: IconName; size?: number }) {
@@ -155,7 +160,6 @@ function StudentHome() {
           <div className="contact">
             <h3>Información de Contacto:</h3>
             <p><Icon name="mail" /> Email: <b>israel.vergara@utp.ac.pa</b></p>
-            <p><Icon name="key" /> Contraseña Inicial: <b>Id60395eb!044*</b></p>
             <p><Icon name="phone" /> Teléfono 1: 63533040</p>
             <p><Icon name="phone" /> Teléfono 2: 65882460</p>
           </div>
@@ -526,7 +530,7 @@ function StudentServicesPortal({ onExit }: { onExit: () => void }) {
     <div className="app-shell service-shell">
       <header className="topbar">
         <div className="brand">
-          <div className="logo">UTP</div>
+          <img alt="" className="brand-mark" src={utpLogo} />
           <span>Servicios UTP</span>
         </div>
         <div className="top-actions">
@@ -687,25 +691,34 @@ function StudentServicesPortal({ onExit }: { onExit: () => void }) {
 function ProfileSelection({
   onStudentAccess,
   onServicesAccess,
+  onLogout,
 }: {
   onStudentAccess: () => void;
   onServicesAccess: () => void;
+  onLogout: () => void;
 }) {
   return (
     <div className="profile-page">
+      <header className="portal-topbar">
+        <div className="portal-brand">
+          <img alt="" className="brand-mark" src={utpLogo} />
+          <span>Matrícula UTP</span>
+        </div>
+        <button className="portal-logout" onClick={onLogout} type="button">Cerrar sesión</button>
+      </header>
       <section className="profile-panel">
         <h1>Perfiles de Usuario</h1>
         <div className="profile-divider" />
-        <div className="profile-options" role="list">
-          <button onClick={onStudentAccess} role="listitem" type="button">
+        <div className="profile-options">
+          <button onClick={onStudentAccess} type="button">
             <span className="profile-radio" />
             <span>ESTUDIANTES</span>
           </button>
-          <button disabled role="listitem" type="button">
+          <button disabled type="button">
             <span className="profile-radio" />
             <span>ESTUDIANTE PREINGRESO</span>
           </button>
-          <button onClick={onServicesAccess} role="listitem" type="button">
+          <button onClick={onServicesAccess} type="button">
             <span className="profile-radio" />
             <span>SERVICIOS ESTUDIANTILES</span>
           </button>
@@ -716,14 +729,113 @@ function ProfileSelection({
   );
 }
 
+function LoginScreen({ onLogin }: { onLogin: () => void }) {
+  const [cedula, setCedula] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRecoveryNotice, setShowRecoveryNotice] = useState(false);
+
+  const submitLogin = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    onLogin();
+  };
+
+  return (
+    <div className="login-page">
+      <header className="login-topbar">
+        <div className="login-topbar-inner">
+          <div className="portal-brand">
+            <img alt="" className="brand-mark" src={utpLogo} />
+            <span>Matrícula UTP</span>
+          </div>
+          <a href="https://utp.ac.pa" rel="noreferrer" target="_blank">Portal UTP</a>
+        </div>
+      </header>
+
+      <main className="login-content">
+        <div className="login-layout">
+          <section className="login-card" aria-labelledby="login-title">
+            <h1 id="login-title">Introduzca su cédula y clave para ingresar al sistema.</h1>
+            <form onSubmit={submitLogin}>
+              <label className="login-field" htmlFor="login-cedula">
+                <span>Cédula</span>
+                <span className="login-input-wrap">
+                  <span className="input-icon"><Icon name="user" size={14} /></span>
+                  <input
+                    autoComplete="username"
+                    id="login-cedula"
+                    onChange={(event) => setCedula(event.target.value)}
+                    placeholder="1-1-1"
+                    required
+                    value={cedula}
+                  />
+                </span>
+              </label>
+              <label className="login-field" htmlFor="login-password">
+                <span>Contraseña</span>
+                <span className="login-input-wrap">
+                  <span className="input-icon"><Icon name="key" size={14} /></span>
+                  <input
+                    autoComplete="current-password"
+                    id="login-password"
+                    onChange={(event) => setPassword(event.target.value)}
+                    placeholder="Contraseña"
+                    required
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                  />
+                </span>
+              </label>
+              <label className="show-password">
+                <input checked={showPassword} onChange={(event) => setShowPassword(event.target.checked)} type="checkbox" />
+                <Icon name={showPassword ? "eyeOff" : "eye"} size={14} />
+                Mostrar contraseña
+              </label>
+              <div className="login-actions">
+                <button className="primary-button" disabled={!cedula.trim() || !password} type="submit">
+                  Iniciar sesión
+                </button>
+              </div>
+            </form>
+            <p className="demo-notice">Acceso de demostración. No se validan credenciales institucionales.</p>
+          </section>
+
+          <aside className="recovery-card">
+            <h2>¿Olvidó su contraseña del Sitio de Matrícula UTP?</h2>
+            <p>Siga las instrucciones para recuperar su contraseña aquí.</p>
+            <button onClick={() => setShowRecoveryNotice((visible) => !visible)} type="button">Recuperar acceso</button>
+            {showRecoveryNotice && (
+              <p className="recovery-notice" role="status">
+                La recuperación estará disponible cuando se conecte el servicio de autenticación.
+              </p>
+            )}
+          </aside>
+        </div>
+
+        <section className="login-news" aria-labelledby="news-title">
+          <h2 id="news-title"><Icon name="document" size={15} /> Noticias</h2>
+          <p><strong>¡ATENCIÓN!</strong> Los créditos de técnicos y licenciaturas tendrán un costo de B/.5.00; para postgrados y maestrías es de B/.10.00.</p>
+        </section>
+
+        <footer className="login-footer">© 2026 - Universidad Tecnológica de Panamá - DITIC</footer>
+      </main>
+    </div>
+  );
+}
+
 export default function App() {
-  const [selected, setSelected] = useState("Solicitud de título");
-  const [portal, setPortal] = useState<"profiles" | "student" | "services">("profiles");
+  const [selected, setSelected] = useState("Inicio");
+  const [portal, setPortal] = useState<"login" | "profiles" | "student" | "services">("login");
   const title = selected === "Inicio" ? "Bienvenido al Sitio de Estudiantes" : selected;
+
+  if (portal === "login") {
+    return <LoginScreen onLogin={() => setPortal("profiles")} />;
+  }
 
   if (portal === "profiles") {
     return (
       <ProfileSelection
+        onLogout={() => setPortal("login")}
         onServicesAccess={() => setPortal("services")}
         onStudentAccess={() => setPortal("student")}
       />
@@ -731,14 +843,14 @@ export default function App() {
   }
 
   if (portal === "services") {
-    return <StudentServicesPortal onExit={() => setPortal("profiles")} />;
+    return <StudentServicesPortal onExit={() => setPortal("login")} />;
   }
 
   return (
     <div className="app-shell">
       <header className="topbar">
         <div className="brand">
-          <div className="logo">UTP</div>
+          <img alt="" className="brand-mark" src={utpLogo} />
           <span>Matrícula UTP</span>
         </div>
         <div className="top-actions">
@@ -747,9 +859,9 @@ export default function App() {
           <Icon name="menu" />
           <Icon name="help" />
           <button
-            aria-label="Regresar a perfiles de usuario"
+            aria-label="Cerrar sesión"
             className="user-menu"
-            onClick={() => setPortal("profiles")}
+            onClick={() => setPortal("login")}
             type="button"
           >
             <Icon name="user" /> ISRAEL⌄
@@ -757,7 +869,7 @@ export default function App() {
         </div>
       </header>
       <Sidebar
-        onExit={() => setPortal("profiles")}
+        onExit={() => setPortal("login")}
         onSelect={setSelected}
         selected={selected}
       />

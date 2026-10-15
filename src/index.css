@@ -15,9 +15,26 @@ button { font: inherit; }
   background: #fafafa;
   color: #111;
   min-height: 100vh;
-  padding: 27px 15px 70px;
+  padding: 69px 15px 70px;
   position: relative;
 }
+.portal-topbar {
+  align-items: center;
+  background: #252525;
+  color: #f4f4f4;
+  display: flex;
+  height: 42px;
+  justify-content: space-between;
+  left: 0;
+  padding: 0 20px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.portal-brand { align-items: center; display: flex; font-size: 15px; font-weight: 600; gap: 8px; }
+.brand-mark { background: #fff; border-radius: 50%; display: block; flex: 0 0 auto; height: 34px; object-fit: cover; width: 34px; }
+.portal-logout { background: transparent; border: 0; color: inherit; cursor: pointer; padding: 8px; }
+.portal-logout:hover, .portal-logout:focus-visible { color: #8fd0ee; }
 .profile-panel {
   border: 1px solid #d9d9d9;
   border-radius: 5px;
@@ -76,6 +93,41 @@ button { font: inherit; }
   right: 0;
 }
 
+.login-page { background: #f8f8f8; color: #333; min-height: 100vh; }
+.login-topbar { background: #252525; color: #f4f4f4; height: 42px; }
+.login-topbar-inner { align-items: center; display: flex; height: 100%; justify-content: space-between; margin: 0 auto; max-width: 1140px; padding: 0 20px; }
+.login-topbar-inner > a { color: #c6c6c6; font-size: 11px; text-decoration: none; }
+.login-topbar-inner > a:hover, .login-topbar-inner > a:focus-visible { color: white; text-decoration: underline; }
+.login-content { color: #333; margin: 0 auto; max-width: 880px; min-height: calc(100vh - 42px); padding: 41px 0 25px; width: calc(100% - 32px); }
+.login-layout { align-items: start; display: grid; gap: 12px; grid-template-columns: minmax(0, 2.15fr) minmax(225px, 1fr); }
+.login-card, .recovery-card { background: #fff; border: 1px solid #e5e5e5; border-radius: 3px; box-shadow: 0 1px 2px rgba(0, 0, 0, .04); }
+.login-card { padding: 20px 11px 17px; }
+.login-card h1 { border-bottom: 1px solid #eee; color: #47515a; font-size: 14px; font-weight: 400; line-height: 1.5; margin: 0; padding: 0 0 13px; }
+.login-card form { padding: 18px 15px 0; }
+.login-field { align-items: center; display: grid; font-size: 11px; font-weight: 700; gap: 12px; grid-template-columns: 72px minmax(0, 1fr); margin-bottom: 17px; }
+.login-input-wrap { display: flex; min-width: 0; }
+.input-icon { align-items: center; background: #f2f2f2; border: 1px solid #d5d5d5; border-radius: 3px 0 0 3px; color: #555; display: flex; justify-content: center; width: 31px; }
+.login-input-wrap input { border: 1px solid #d5d5d5; border-left: 0; border-radius: 0 3px 3px 0; color: #444; height: 34px; min-width: 0; padding: 0 10px; width: 100%; }
+.login-input-wrap input:focus { border-color: #66afe9; box-shadow: 0 0 6px rgba(102, 175, 233, .55); outline: 0; }
+.login-input-wrap input::placeholder { color: #aaa; font-style: italic; }
+.show-password { align-items: center; color: #337ab7; cursor: pointer; display: flex; font-size: 11px; gap: 5px; margin: 0 0 19px 84px; }
+.show-password input { accent-color: #337ab7; margin: 0; }
+.login-actions { background: #f4f4f4; border-top: 1px solid #e7e7e7; margin: 0 -15px; padding: 13px 15px; }
+.login-actions .primary-button { background: #428bca; border-radius: 3px; min-height: 34px; }
+.login-actions .primary-button:hover { background: #3276b1; }
+.demo-notice { color: #75818a; font-size: 10px; margin: 12px 4px 0; }
+.recovery-card { padding: 12px 10px; text-align: center; }
+.recovery-card h2 { color: #444; font-size: 14px; font-weight: 400; line-height: 1.35; margin: 0 0 20px; }
+.recovery-card p { font-size: 10px; line-height: 1.5; margin: 0 0 7px; }
+.recovery-card button { background: #5bc0de; border: 0; border-radius: 3px; color: white; cursor: pointer; font-size: 10px; padding: 5px 9px; }
+.recovery-card button:hover { background: #31b0d5; }
+.recovery-card .recovery-notice { background: #eef8fb; border-left: 3px solid #5bc0de; color: #426c7a; margin: 12px 0 0; padding: 8px; text-align: left; }
+.login-news { margin-top: 14px; }
+.login-news h2 { align-items: center; background: #eee; color: #428bca; display: flex; font-size: 13px; font-weight: 400; gap: 6px; margin: 0; padding: 12px; }
+.login-news p { background: white; font-size: 10px; line-height: 1.6; margin: 0; padding: 12px; }
+.login-news p strong { color: #c9302c; }
+.login-footer { border-top: 1px solid #eee; color: #555; font-size: 10px; margin-top: 28px; padding-top: 17px; }
+
 .app-shell {
   min-height: 100vh;
   padding-top: 42px;
@@ -107,21 +159,6 @@ button { font: inherit; }
   height: 100%;
   padding: 0 20px;
   width: 207px;
-}
-
-.logo {
-  align-items: center;
-  background: #f5f5f5;
-  border: 3px solid #b9cfbd;
-  border-radius: 50%;
-  color: #754a76;
-  display: flex;
-  font-family: Georgia, serif;
-  font-size: 11px;
-  font-weight: 800;
-  height: 34px;
-  justify-content: center;
-  width: 34px;
 }
 
 .top-actions { align-items: center; display: flex; gap: 27px; padding-right: 19px; }
@@ -647,8 +684,16 @@ footer b {
 }
 
 @media (max-width: 640px) {
+  .login-topbar-inner { padding: 0 12px; }
+  .login-content { padding-top: 22px; width: calc(100% - 24px); }
+  .login-layout { grid-template-columns: 1fr; }
+  .login-field { align-items: start; gap: 6px; grid-template-columns: 1fr; }
+  .show-password { margin-left: 0; }
+  .recovery-card { text-align: left; }
+  .recovery-card h2 { margin-bottom: 10px; }
   .profile-page { padding-left: 10px; padding-right: 10px; }
   .profile-panel { min-height: 270px; padding-top: 35px; width: 100%; }
+  .portal-topbar { padding: 0 12px; }
   .profile-panel h1 { font-size: 21px; }
   .app-shell { padding-left: 0; padding-top: 42px; }
   .brand { width: auto; }
