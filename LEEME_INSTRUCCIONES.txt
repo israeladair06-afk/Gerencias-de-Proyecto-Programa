@@ -70,8 +70,14 @@ En la web (React):
   src/services/arduinoService.ts (obtenerDatosArduino, suscribirArduinoEnTiempoReal)
 
 ====================================================================
-NOTA IMPORTANTE AL COMPARTIR:
-No envies la carpeta "node_modules". Al hacer doble clic en 
-"iniciar.bat", se creara automaticamente en segundos.
+COMO OBTENER ESTE PROYECTO DESDE GITHUB:
+====================================================================
+Puedes clonar el repositorio con:
+git clone https://github.com/israeladair06-afk/Gerencias-de-Proyecto-Programa.git
+
+O descargar el ZIP desde GitHub dando clic en el botón verde "Code" -> "Download ZIP".
+
+Al descargarlo o clonarlo, simplemente haz doble clic en "iniciar.bat" 
+y el sistema se encargará de todo.
 ====================================================================
 
