@@ -1,0 +1,77 @@
+====================================================================
+GUIA RAPIDA: COMO EJECUTAR ESTE PROYECTO (MATRICULA UTP)
+====================================================================
+
+¡Hola! Este proyecto es una aplicacion web desarrollada con React,
+Vite y Tailwind CSS.
+
+Sigue estos sencillos pasos para ponerlo a funcionar en tu computadora:
+
+--------------------------------------------------------------------
+PASO 1: REQUISITO UNICO (Solo la primera vez)
+--------------------------------------------------------------------
+Necesitas tener instalado "Node.js" en tu computadora:
+
+1. Entra a: https://nodejs.org
+2. Descarga la version "LTS" (Recomendada para la mayoria).
+3. Abre el instalador descargado y dale "Next / Siguiente" a todo.
+
+(Si ya tienes Node.js instalado, pasa directo al Paso 2).
+
+--------------------------------------------------------------------
+PASO 2: EJECUTAR EL PROYECTO (1 Solo Clic)
+--------------------------------------------------------------------
+1. En esta carpeta, haz DOBLE CLIC en el archivo:
+   
+   👉 iniciar.bat
+
+2. El archivo hara todo solo:
+   - Descargara las dependencias si es la primera vez.
+   - Levantara el servidor local.
+   - Abrira tu navegador automaticamente en la pagina web.
+
+Si tu navegador no se abre solo, abre cualquier navegador y entra a:
+👉 http://localhost:8443
+
+(Para apagar el programa, simplemente cierra la ventana de la consola).
+
+--------------------------------------------------------------------
+METODO ALTERNATIVO (Por consola de comandos / Terminal):
+--------------------------------------------------------------------
+Si prefieres usar la terminal (CMD, PowerShell o VS Code):
+1. Abre la terminal en esta carpeta.
+2. Escribe:
+     npm install
+3. Luego escribe:
+     npm run dev
+4. Entra a: http://localhost:8443
+
+====================================================================
+MODULO ARDUINO (BASE DE DATOS / RFID / SENSORES)
+====================================================================
+Si vas a conectar un ARDUINO como base de datos o lector de datos:
+
+¡Ya tienes una carpeta lista y configurada para ti!:
+👉 Carpeta: "arduino/"
+
+Dentro de esa carpeta encontrarás:
+1. "codigo_arduino/codigo_arduino.ino": Código base listo para subir
+   al Arduino desde el Arduino IDE (envía y recibe datos en JSON).
+2. "server_bridge/": Servidor puente en Node.js que conecta el puerto
+   USB del Arduino con la aplicación web.
+   Para iniciarlo, solo haces doble clic en:
+   👉 arduino/server_bridge/iniciar_bridge.bat
+3. "README_ARDUINO.txt": Guía paso a paso detallada exclusivamente
+   para el trabajo con Arduino.
+
+En la web (React):
+- El archivo de vistas es: src/App.tsx
+- Ya tienes listas las funciones de conexión en:
+  src/services/arduinoService.ts (obtenerDatosArduino, suscribirArduinoEnTiempoReal)
+
+====================================================================
+NOTA IMPORTANTE AL COMPARTIR:
+No envies la carpeta "node_modules". Al hacer doble clic en 
+"iniciar.bat", se creara automaticamente en segundos.
+====================================================================
+
