@@ -737,34 +737,47 @@ function TitleRequest({ student }: { student: StudentProfileData }) {
       return;
     }
 
-    const estadoDb = allRequirementsComplete && degree === "tecnico" ? "Aprobada" : "En revision";
-
     try {
-      const response = await fetch("/api/db/solicitudes", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          cedula: student.cedula,
-          titulo: degreeLabels[degree],
-          nivel_academico: degree,
-          enfoque_solicitud: degree === "tecnico" ? "curricular" : "graduacion",
-          modalidad_graduacion: degree === "tecnico" ? "Culminación de plan técnico" : graduationOption,
-          recibo_pago: honorChapter ? "EXONERADO-HONOR" : paymentReceipt,
-          nombreDiploma: diplomaName,
-          estado: estadoDb,
-          observaciones: `Modalidad: ${degree === "tecnico" ? "Salida intermedia curricular" : graduationOption} | Comprobante: ${honorChapter ? "Exonerado (Capítulo de Honor)" : paymentReceipt}`,
-        }),
-      });
+      const response = await fetch(
+        "https://diplo-utp-backend-production.up.railway.app/api/solicitudes",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            matricula: student.matricula,
+            cedula: student.cedula,
+            correo: student.correo,
+            nombreDiploma: diplomaName.trim(),
+            telefono: phone.trim(),
+            direccion: address.trim(),
+            titulo: degreeLabels[degree],
+            facultad: student.facultad,
+            carrera: student.carrera,
+            centro: student.sede,
+            correoSecundario: secondaryEmail.trim(),
+          }),
+        }
+      );
+
       const data = await response.json();
-      if (data.ok && data.numero_solicitud) {
-        setRequestNumber(data.numero_solicitud);
+
+      if (!response.ok || !data.numero_solicitud) {
+        setValidationError(
+          data.error || "No se pudo guardar la solicitud en la base de datos."
+        );
+        return;
       }
+
+      setRequestNumber(data.numero_solicitud);
+      setView("status");
     } catch {
-      // Mantiene el número por defecto
+      setValidationError(
+        "No se pudo conectar con el servidor. Intente nuevamente."
+      );
     }
 
-    setView("status");
-  };
+
+     };
 
   const downloadCopy = () => {
     const confirmed = allRequirementsComplete && degree === "tecnico";
